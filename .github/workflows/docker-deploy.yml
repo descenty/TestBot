@@ -12,7 +12,7 @@ jobs:
           docker context create remote-docker --docker host=ssh://root@descenty.ru;
           docker context use remote-docker
       - run: |
-          mkdir -p /home/runner/.ssh;
+          mkdir /home/runner/.ssh;
           ssh-keyscan descenty.ru >> /home/runner/.ssh/known_hosts
           echo "${{ secrets.KEY }}" > /home/runner/.ssh/github_actions
           chmod 600 /home/runner/.ssh/github_actions
