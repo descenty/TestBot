@@ -17,4 +17,4 @@ jobs:
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
       - uses: actions/checkout@v4
       - run: echo "TOKEN=${{ secrets.TOKEN }}" > .env
-      - run: docker compose up
+      - run: docker compose up --build -d
