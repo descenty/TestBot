@@ -1,11 +1,16 @@
 import re
 from random import randint
 
+from dotenv import load_dotenv
+
+import os
+
 import discord
 from discord.ext import commands
+load_dotenv()
 
 config = {
-    'token': 'MTA5NTM1NjY2OTc4MjkyNTQ1Mw.GcX4Wk.Dv6IdsJPBHBIZ7peP4Ku43qm-6MLxwv7ASGFCM',
+    'token': os.getenv('TOKEN'),
     'prefix': '!',
 }
 
@@ -92,16 +97,6 @@ async def MLPrecommend(ctx):
     await ctx.reply(f"{reccomendStart[randint(0, len(reccomendStart)-1)]}{ep} episode of {s} season of My Little Pony:"
                     f" Friendship is Magic. It's title is ''{name}''. Here is a link for you: {link}."
                     f" {wishes[randint(0, len(wishes)-1)]}")
-@bot.command()
-async def coin(ctx):
-    x = randint(1, 2)
-    if x > 0:
-        await ctx.reply("heads")
-    else:
-        await ctx.reply("tails")
-
-bot.run(config['token'])
-
 @bot.command()
 async def coin(ctx):
     x = randint(1, 2)
