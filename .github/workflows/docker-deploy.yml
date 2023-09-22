@@ -11,7 +11,13 @@ jobs:
       - run: |
           docker context create remote-docker --docker host=ssh://root@descenty.ru;
           docker context use remote-docker
-      - run: echo ${{ secrets.KEY }} > ~/.ssh/id_rsa && chmod 400 ~/.ssh/id_rsa
+      - run: |
+          mkdir -p /home/runner/.ssh;
+          ssh-keyscan descenty.ru >> /home/runner/.ssh/known_hosts
+          echo "${{ secrets.KEY }}" > /home/runner/.ssh/github_actions
+          chmod 600 /home/runner/.ssh/github_actions
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null	
+          ssh-add /home/runner/.ssh/github_actions
       - uses: actions/checkout@v4
       - run: echo TOKEN=${{ secrets.TOKEN }} > .env
       - run: docker compose up
