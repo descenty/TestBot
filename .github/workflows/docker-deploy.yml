@@ -9,22 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          docker context create remote-docker --docker host=ssh://root@descenty.ru;
+          docker context create remote-docker --docker host=ssh://root@${{ secrets.SSH_HOST }};
           docker context use remote-docker
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.KEY }}
-          name: id_rsa # optional
-          known_hosts: descenty.ru # optional
-          if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
-      # - run: |
-      #     mkdir -p /home/runner/.ssh;
-      #     ssh-keyscan descenty.ru >> /home/runner/.ssh/known_hosts
-      #     echo "${{ secrets.KEY }}" > /home/runner/.ssh/github_actions
-      #     chmod 400 /home/runner/.ssh/github_actions
-      #     eval `ssh-agent -s`
-      #     ssh-add /home/runner/.ssh/github_actions
+      - run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
       - uses: actions/checkout@v4
       - run: echo "TOKEN=${{ secrets.TOKEN }}" > .env
       - run: docker compose up
