@@ -1,0 +1,17 @@
+name: Docker Deploy CI
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Create Docker Context
+      run: |
+        docker context create remote-docker --docker "ssh://root@descenty.ru";
+        docker context use remote-docker
+    - name: Deploy Docker
+      run: docker compose up
+    
