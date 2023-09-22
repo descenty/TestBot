@@ -14,8 +14,8 @@ jobs:
       - run: |
           mkdir -p /home/runner/.ssh;
           ssh-keyscan descenty.ru >> /home/runner/.ssh/known_hosts
-          echo "${{ secrets.KEY }}" > /home/runner/.ssh/github_actions
-          chmod 600 /home/runner/.ssh/github_actions
+          echo ${{ secrets.KEY }} > /home/runner/.ssh/github_actions
+          chmod 400 /home/runner/.ssh/github_actions
           eval `ssh-agent -s`
           ssh-add /home/runner/.ssh/github_actions
       - uses: actions/checkout@v4
