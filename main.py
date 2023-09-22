@@ -110,6 +110,6 @@ async def coin(ctx):
 @bot.command()
 async def EaWCountryPick(ctx):
     n = randint(0, len(countries))
-    await ctx.reply(f"I don't really like this game, but if you want... Well, you can play as{countries[n]}")
+    await ctx.reply(f"I don't really like this game, but if you want... Well, you can play as countries[n]")
 bot.run(config['token'])
 
