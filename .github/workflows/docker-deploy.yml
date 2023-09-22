@@ -11,13 +11,20 @@ jobs:
       - run: |
           docker context create remote-docker --docker host=ssh://root@descenty.ru;
           docker context use remote-docker
-      - run: |
-          mkdir -p /home/runner/.ssh;
-          ssh-keyscan descenty.ru >> /home/runner/.ssh/known_hosts
-          echo ${{ secrets.KEY }} > /home/runner/.ssh/github_actions
-          chmod 400 /home/runner/.ssh/github_actions
-          eval `ssh-agent -s`
-          ssh-add /home/runner/.ssh/github_actions
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.KEY }}
+          name: id_rsa # optional
+          known_hosts: descenty.ru # optional
+          if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
+      # - run: |
+      #     mkdir -p /home/runner/.ssh;
+      #     ssh-keyscan descenty.ru >> /home/runner/.ssh/known_hosts
+      #     echo "${{ secrets.KEY }}" > /home/runner/.ssh/github_actions
+      #     chmod 400 /home/runner/.ssh/github_actions
+      #     eval `ssh-agent -s`
+      #     ssh-add /home/runner/.ssh/github_actions
       - uses: actions/checkout@v4
-      - run: echo TOKEN=${{ secrets.TOKEN }} > .env
+      - run: echo "TOKEN=${{ secrets.TOKEN }}" > .env
       - run: docker compose up
