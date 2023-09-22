@@ -8,10 +8,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Create Docker Context
-      run: |
+    - run: |
         docker context create remote-docker --docker host=ssh://root@descenty.ru;
         docker context use remote-docker
-    - name: Deploy Docker
-      run: docker compose up
+    - uses: actions/checkout@v4
+    - run: docker compose up
     
