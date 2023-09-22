@@ -22,7 +22,9 @@ wishes = [
     "And don't forget to enjoy upcoming night! It is going to be beautiful, i just know it!",
     "May all your dreams be sweet tonight!"
 ]
-
+countries = [
+    "Changeling Lands", "Equestria", "Kingdom of Olenia", "Stalliongrad", "Griffonian Empire,Kingdom of Wingbardy", "Kingdom of Aquileia", "River Republic", "Hippogriffia", "Arcturian Order", "Blackrock's Bandits", "Buffalo Chiefdom", "Barony of Rumare", "Barrad Magocracy", "City of Flowena", "County of Greifwald", "Crystal Empire", "Dread League", "Griffon Liberation Army", "Griffon Frontier", "Griffonian Republic", "Jaki-Clan", "Our Town", "Austurland", "Kingdom of Pingland", "Kingdom of Yakyakistan", "New Mareland", "Nova Griffonia", "Kása Free State", "House Avian", "Sunstriker Clan", "Skyfall Trade Federation", "Grand Duchy of Feathisia", "Flag of Falcorian Queendom Falcorian Queendom Flag of Barony of Arantiga Barony of Arantiga Flag of Bakaran Republic Bakaran Republic", "Lake City", "Diamond Mountain", "Nimbusia", "Kingdom of Wittenland", "Pònaidhean", "Gryphian Host", "Ordensstaat Hellquill", "County of Longsword", "Principality of Lushi", "Farbrook", "Firtree Villages", "Greneclyf", "Kingdom of Brodfeld", "Socialist Republic of Skynavia", "Kingdom of Vedina", "Federated Parishes of Sicameon", "County of Cyanolisia", "Republic of Asterion", "Free Towns of Gryphus", "Strawberry Duchy", "Barony of Angriver", "County of Bronzehill", "Greifenmarschen", "Katerin Principality", "Yale Rectorate", "Haukland", "Township of Fezera", "County of Francistria", "Duchy of Talouse", "Free City of Romau", "Celestial State", "Confederation of Southern States", "Disciples of the Night", "Aztlan Free State", "Lunar Empire", "Baltimare Republic", "Solar Empire", "Imperium Crystale", "Vanhoover Commune", "Las Pegasus", "Manehattan Protectorate", "Equestrian Liberation Front", "Republic of Tarrin"
+]
 reccomendStart = [
     "Oh, you should definitely watch ",
     "You want me to chose? Hee hee! Well, i think, you'll like ",
@@ -105,4 +107,9 @@ async def coin(ctx):
     else:
         await ctx.reply("tails")
 
+@bot.command()
+async def EaWCountryPick(ctx):
+    n = randint(0, len(countries))
+    await ctx.reply(f"I don't really like this game, but if you want... Well, you can play as{countries[n]}")
 bot.run(config['token'])
+
