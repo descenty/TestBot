@@ -12,6 +12,7 @@ jobs:
           docker context create remote-docker --docker host=ssh://root@descenty.ru;
           docker context use remote-docker
       - uses: actions/checkout@v4
-      - run: echo ${{secrets.KEY}} > /home/runner/.ssh/id_rsa
+      - name: Add SSH key
+        run: echo ${{ secrets.KEY }} > /home/runner/.ssh/id_rsa
       - run: echo TOKEN=${{ secrets.TOKEN }} >> .env
       - run: docker compose up
